@@ -1,2 +1,2 @@
 # Create-base-Makefile
-Ce programme crée la base vide d'un Makefile (adapté à la convention de l'école)
+Ce programme crée la base vide d'un Makefile (adapté à la convention de l'école, avec quelques ajouts personnels).
