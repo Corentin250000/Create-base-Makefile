@@ -1,6 +1,6 @@
 # Create-base-Makefile
 
-Ce programme crée la base vide d'un Makefile (adapté à la convention d'Epitech).
+Ce programme crée la base vide d'un Makefile (adapté à la convention d'Epitech), ainsi qu'un _gitignore_ afin d'éviter les possibles _pushs_ sur _Github_ des fichiers de tests unitaire.
 
 ## Comment utiliser le programme ?
 

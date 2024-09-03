@@ -24,9 +24,11 @@ echo -e "\nCC\t=\tgcc" >> $FILE
 
 echo -e "\nFLAGS\t=\t-Wall -Wextra -g" >> $FILE
 
-echo -e "\nCFLAGS\t=\t-fprofile-arcs -ftest-coverage -O0" >> $FILE
+echo -e "\nCRITERION\t=\t-fprofile-arcs -ftest-coverage -O0 --coverage -lcriterion" >> $FILE
 
-echo -e "\nLIBS\t=\t--coverage -lcriterion" >> $FILE
+echo -e "\nCFLAGS\t=" >> $FILE
+
+echo -e "\nLIBS\t=" >> $FILE
 
 echo -e "\n$""(NAME):\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS) $""(LIBS)" >> $FILE
 
@@ -38,7 +40,7 @@ echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_
 
 echo -e "\nre:\t\tfclean all" >> $FILE
 
-echo -ne "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) -o unit_tests $""(OBJ_UNIT_TESTS) $""(FLAGS) $""(CFLAGS) $""(LIBS)\n\t\t./unit_tests --verbose\n\t\tlcov --capture --directory . --output-file coverage.info" >> $FILE
+echo -ne "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) -o unit_tests $""(OBJ_UNIT_TESTS) $""(FLAGS) $""(CRITERION) $""(LIBS)\n\t\t./unit_tests --verbose\n\t\tlcov --capture --directory . --output-file coverage.info" >> $FILE
 echo -e " \\" >> $FILE
 echo -ne "\t\t--ignore-errors mismatch\n\t\tlcov --remove coverage.info '*/tests/*' --output-file" >> $FILE
 echo -e " \\" >> $FILE
@@ -49,5 +51,11 @@ echo -e "\n# Cette règle ne s'adresse qu'aux étudiants Epitech possédant le s
 echo -e "\ncoding_style:\tfclean\n\t\t\tcoding-style . .\n\t\t\tcat coding-style-reports.log\n\t\t\trm -f coding-style-reports.log" >> $FILE
 
 echo -e "\n.PHONY:\tall clean fclean re tests_run coding_style" >> $FILE
+
+#.gitignore
+
+GITIGNORE=".gitignore"
+
+echo -e "\n*.gcda\n*.gcno\n*.o\n*.info\nout/\nunit_tests\ncoding-style-reports.log" >> $GITIGNORE
 
 exit 0
