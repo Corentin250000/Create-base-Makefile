@@ -4,7 +4,7 @@
 
 FILE="Makefile"
 
-YEAR=$(date | awk '{print $7}')
+YEAR=$1
 
 HEADER="##\n## EPITECH PROJECT, "$YEAR"\n## "$FILE"\n## File description:\n## "$FILE"\n##"
 
@@ -24,23 +24,21 @@ echo -e "\nCC\t=\tgcc" >> $FILE
 
 echo -e "\nFLAGS\t=\t-Wall -Wextra -g" >> $FILE
 
-echo -e "\nCRITERION\t=\t-fprofile-arcs -ftest-coverage -O0 --coverage -lcriterion" >> $FILE
+echo -e "\nLIBS\t=\t-lcriterion" >> $FILE
 
-echo -e "\nCFLAGS\t=" >> $FILE
+echo -e "\nCFLAGS\t=\t$""(FLAGS) $""(LIBS)" >> $FILE
 
-echo -e "\nLIBS\t=" >> $FILE
-
-echo -e "\n$""(NAME):\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS) $""(LIBS)" >> $FILE
+echo -e "\n$""(NAME):\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS)" >> $FILE
 
 echo -e "\nall:\t$""(NAME)" >> $FILE
 
-echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcno' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcov' -exec rm -f {} +" >> $FILE
+echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcno' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcov' -exec rm -f {} +\n\t\tfind . -type f -name '*.info' -exec rm -f {} +" >> $FILE
 
-echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests\n\t\trm -f coverage.info\n\t\trm -f coverage_filtered.info\n\t\trm -rf out\n\t\trm -f vgcore.*" >> $FILE
+echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests\n\t\trm -rf out\n\t\trm -f vgcore.*" >> $FILE
 
 echo -e "\nre:\t\tfclean all" >> $FILE
 
-echo -ne "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) -o unit_tests $""(OBJ_UNIT_TESTS) $""(FLAGS) $""(CRITERION) $""(LIBS)\n\t\t./unit_tests --verbose\n\t\tlcov --capture --directory . --output-file coverage.info" >> $FILE
+echo -ne "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -lcriterion -o unit_tests $""(SRC_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose\n\t\tlcov --capture --directory . --output-file coverage.info" >> $FILE
 echo -e " \\" >> $FILE
 echo -ne "\t\t--ignore-errors mismatch\n\t\tlcov --remove coverage.info '*/tests/*' --output-file" >> $FILE
 echo -e " \\" >> $FILE
