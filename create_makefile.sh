@@ -32,17 +32,13 @@ echo -e "\n$""(NAME):\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS)"
 
 echo -e "\nall:\t$""(NAME)" >> $FILE
 
-echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcno' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcov' -exec rm -f {} +\n\t\tfind . -type f -name '*.info' -exec rm -f {} +" >> $FILE
+echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcno' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcov' -exec rm -f {} +\n\t\tfind . -type f -name '*~' -exec rm -f {} +" >> $FILE
 
-echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests\n\t\trm -rf out\n\t\trm -f vgcore.*" >> $FILE
+echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests\n\t\trm -f vgcore.*" >> $FILE
 
 echo -e "\nre:\t\tfclean all" >> $FILE
 
-echo -ne "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -lcriterion -o unit_tests $""(SRC_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose\n\t\tlcov --capture --directory . --output-file coverage.info" >> $FILE
-echo -e " \\" >> $FILE
-echo -ne "\t\t--ignore-errors mismatch\n\t\tlcov --remove coverage.info '*/tests/*' --output-file" >> $FILE
-echo -e " \\" >> $FILE
-echo -e " \t\tcoverage_filtered.info --ignore-errors mismatch\n\t\tgenhtml coverage_filtered.info --output-directory out" >> $FILE
+echo -e "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -o unit_tests $""(SRC_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose" >> $FILE
 
 echo -e "\n# Cette règle ne s'adresse qu'aux étudiants Epitech possédant le script" >> $FILE
 
@@ -54,6 +50,6 @@ echo -e "\n.PHONY:\tall clean fclean re tests_run coding_style" >> $FILE
 
 GITIGNORE=".gitignore"
 
-echo -e "\n*.gcda\n*.gcno\n*.o\n*.info\nout/\nunit_tests\ncoding-style-reports.log" >> $GITIGNORE
+echo -e "\n*.gcda\n*.gcno\n*.o\nunit_tests\ncoding-style-reports.log" >> $GITIGNORE
 
 exit 0
