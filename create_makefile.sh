@@ -24,7 +24,7 @@ echo -e "\nCC\t=\tgcc" >> $FILE
 
 echo -e "\nFLAGS\t=\t-Wall -Wextra -g" >> $FILE
 
-echo -e "\nLIBS\t=\t-lcriterion" >> $FILE
+echo -e "\nLIBS\t=" >> $FILE
 
 echo -e "\nCFLAGS\t=\t$""(FLAGS) $""(LIBS)" >> $FILE
 
@@ -34,11 +34,11 @@ echo -e "\nall:\t$""(NAME)" >> $FILE
 
 echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcno' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcov' -exec rm -f {} +\n\t\tfind . -type f -name '*~' -exec rm -f {} +" >> $FILE
 
-echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests\n\t\trm -f vgcore.*" >> $FILE
+echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests" >> $FILE
 
 echo -e "\nre:\t\tfclean all" >> $FILE
 
-echo -e "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -o unit_tests $""(SRC_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose" >> $FILE
+echo -e "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -lcriterion -o unit_tests $""(SRC_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose" >> $FILE
 
 echo -e "\n# Cette règle ne s'adresse qu'aux étudiants Epitech possédant le script" >> $FILE
 
