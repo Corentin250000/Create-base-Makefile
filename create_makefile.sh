@@ -22,17 +22,17 @@ echo -e "\nNAME\t=" >> $FILE
 
 echo -e "\nCC\t=\tgcc" >> $FILE
 
-echo -e "\nFLAGS\t=\t-Wall -Wextra -g" >> $FILE
+echo -e "\nFLAGS\t=\t-Wall -Wextra -g -I" >> $FILE
 
 echo -e "\nLIBS\t=" >> $FILE
 
 echo -e "\nCFLAGS\t=\t$""(FLAGS) $""(LIBS)" >> $FILE
 
-echo -e "\n$""(NAME):\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS)" >> $FILE
+echo -e "\n$""(NAME):\n#\t\tmake re -C lib/\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS)" >> $FILE
 
 echo -e "\nall:\t$""(NAME)" >> $FILE
 
-echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcno' -exec rm -f {} +\n\t\tfind . -type f -name '*.gcov' -exec rm -f {} +\n\t\tfind . -type f -name '*~' -exec rm -f {} +" >> $FILE
+echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -delete\n\t\tfind . -type f -name '*.gcno' -delete\n\t\tfind . -type f -name '*.gcov' -delete\n\t\tfind . -type f -name '*~' -delete" >> $FILE
 
 echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests" >> $FILE
 

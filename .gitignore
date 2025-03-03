@@ -1,2 +1,4 @@
 Makefile
 .vscode
+*.c
+test
