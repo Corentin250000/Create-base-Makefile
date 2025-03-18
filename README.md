@@ -20,7 +20,7 @@ Pour les plus avancés, vous pouvez ajouter un chemin (**PATH**) dans votre fich
 
 - La variable `NAME` sert à donner le nom d'éxécutable au fichier compilé.
 
-- Les variables `FLAGS` et `LIBS` sont à remplir si besoin (le **-I** dans les `FLAGS` est à remplir avec **votre dossier** où se trouve vos **fichiers .h** [dans le cas du C], comme ceci : `-I[chemin vers le dossier]`). **Surtout**, n'oubliez pas de **remplir ou supprimer** l'option **-I**.
+- Les variables `FLAGS` et `LIBS` sont à remplir si besoin (le **-I** dans les `FLAGS` est à remplir avec **votre dossier** où se trouve vos **fichiers .h** [dans le cas du C], comme ceci : `-I[chemin vers le dossier]`). **Surtout**, n'oubliez pas de **remplir ou supprimer** l'option **-I**, car, si vous la laissez vide, le Makefile provoquera une **erreur**.
 
 - Enfin, si vous utilisez une **bibliothèque statique compilée** avec un autre Makefile, vous pouvez **décommenter** la ligne qui compile la bibliothèque.
-Si vous utilisez un autre dossier que `lib`, n'hésitez pas à le changer pour correspondre à votre cas, tout en suivant cette **règle** : `make re -C [chemin vers le dossier du Makefile]`.
+Si vous utilisez un autre dossier que `lib`, n'hésitez pas à le changer pour correspondre à votre cas, tout en suivant cette **règle** : `make re -C [chemin vers le dossier du Makefile]`. De plus, n'hésitez pas à retirer la redirection vers le `/dev/null` si vous avez besoin des affichages dans le terminal.

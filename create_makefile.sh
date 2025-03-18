@@ -28,7 +28,7 @@ echo -e "\nLIBS\t=" >> $FILE
 
 echo -e "\nCFLAGS\t=\t$""(FLAGS) $""(LIBS)" >> $FILE
 
-echo -e "\n$""(NAME):\n#\t\tmake re -C lib/\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS)" >> $FILE
+echo -e "\n$""(NAME):\n#\t\tmake re -C lib/ > /dev/null\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS)" >> $FILE
 
 echo -e "\nall:\t$""(NAME)" >> $FILE
 
@@ -40,7 +40,7 @@ echo -e "\nre:\t\tfclean all" >> $FILE
 
 echo -e "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -lcriterion -o unit_tests $""(SRC_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose" >> $FILE
 
-echo -e "\n# Cette règle ne s'adresse qu'aux étudiants Epitech possédant le script" >> $FILE
+echo -e "\n# Cette règle ne s'adresse qu'aux étudiants Epitech possédant le script\n# effectuant la vérification de la norme de code Epitech" >> $FILE
 
 echo -e "\ncoding_style:\tfclean\n\t\t\tcoding-style . .\n\t\t\tcat coding-style-reports.log\n\t\t\trm -f coding-style-reports.log" >> $FILE
 
