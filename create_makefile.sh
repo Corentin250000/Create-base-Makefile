@@ -50,6 +50,6 @@ echo -e "\n.PHONY:\tall clean fclean re tests_run coding_style" >> $FILE
 
 GITIGNORE=".gitignore"
 
-echo -e "\n*.gcda\n*.gcno\n*.o\nunit_tests\ncoding-style-reports.log" >> $GITIGNORE
+echo -e "\n.gitignore\n*.gcda\n*.gcno\n*.o\nunit_tests\ncoding-style-reports.log" >> $GITIGNORE
 
 exit 0
