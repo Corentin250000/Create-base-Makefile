@@ -28,7 +28,7 @@ echo -e "\nLIBS\t=" >> $FILE
 
 echo -e "\nCFLAGS\t=\t$""(FLAGS) $""(LIBS)" >> $FILE
 
-echo -e "\n$""(NAME):\n#\t\tmake re -C lib/ > /dev/null\n\t\t$""(CC) -o $""(NAME) $""(SRC) $""(FLAGS) $""(CFLAGS)" >> $FILE
+echo -e "\n$""(NAME):\t$""(OBJ)\n#\t\tmake re -C lib/ > /dev/null\n\t\t$""(CC) -o $""(NAME) $""(OBJ) $""(CFLAGS)" >> $FILE
 
 echo -e "\nall:\t$""(NAME)" >> $FILE
 
@@ -38,7 +38,7 @@ echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_
 
 echo -e "\nre:\t\tfclean all" >> $FILE
 
-echo -e "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -lcriterion -o unit_tests $""(SRC_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose" >> $FILE
+echo -e "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -lcriterion -o unit_tests $""(OBJ_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose" >> $FILE
 
 echo -e "\n# Cette règle ne s'adresse qu'aux étudiants Epitech possédant le script\n# effectuant la vérification de la norme de code Epitech" >> $FILE
 
