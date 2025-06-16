@@ -1,26 +1,34 @@
 # Create-base-Makefile
 
-Ce programme crée la base vide d'un Makefile (adapté à la convention d'Epitech), ainsi qu'un _gitignore_ afin d'éviter les possibles _pushs_ sur _Github_ des fichiers de tests unitaire.
+This program generates a blank Makefile template (following the Epitech coding style), as well as a `.gitignore` file to prevent accidental pushes of unit test files to GitHub.
 
-## Comment utiliser le programme ?
+## How to use the program?
 
-Téléchargez le script shell nommé **create_makefile.sh**, et exécutez-le (`./create_makefile.sh [année]`) dans le dossier où vous voulez mettre le Makefile. Si vous n'avez pas le droit d'exécution sur le fichier, ajoutez-le via la commande `chmod +x create_makefile.sh`. Le paramètre **année** sert pour inscrire l'année donnée dans **l'en-tête du Makefile**.
+Download the shell script named **create_makefile.sh** and run it (`./create_makefile.sh [year]`) in the folder where you want the Makefile to be created.  
+If the file is not executable, you can make it so with the command:  
+`chmod +x create_makefile.sh`.  
+The **year** parameter is used to insert the specified year in the **Makefile header**.
 
-Pour les plus avancés, vous pouvez ajouter un chemin (**PATH**) dans votre fichier **.bashrc** (si bash utilisé, pour les autres, renseignez-vous) avec cette commande : `export PATH=$PATH:` avec, après le ':', le chemin absolu vers votre dossier où se trouve le script. Cela vous permettra de pouvoir exécuter le script où que vous soyez dans vos dossiers (commmande à exécuter : `create_makefile.sh [année]`).
+For more advanced users, you can add a path (**PATH**) in your **.bashrc** file (if using bash, in other cases, check documentation for other shells) with the command:  
+`export PATH=$PATH:` followed by the absolute path to the folder where the script is located.  
+This allows you to execute the script from anywhere in your filesystem (command: `create_makefile.sh [year]`).
 
-**Attention, l'exécution du script effacera le précédent Makefile, si présent.**
+**Warning: running the script will overwrite any existing Makefile.**
 
-## Instructions supplémentaires
+## Additional Instructions
 
-- Il est **préférable** de mettre la fonction `main` dans un **fichier à part**, afin d'éviter tout problème avec la **compilation** des tests unitaires.
+- It is **recommended** to put the `main` function in a **separate file** to avoid issues with **unit test compilation**.
 
-- Dans la variable `SRC`, mettez tous vos **fichiers sources**, sauf ceux servant aux **tests unitaires**.
+- In the `SRC` variable, list all your **source files**, except those used for **unit testing**.
 
-- Dans la variable `SRC_UNIT_TESTS`, mettez tous vos **fichiers sources** (**_sauf le fichier où se trouve la fonction main_**), y compris ceux servant aux tests **unitaires**.
+- In the `SRC_UNIT_TESTS` variable, include all your **source files** (**except the one containing the main function**), including those used for **unit testing**.
 
-- La variable `NAME` sert à donner le nom d'éxécutable au fichier compilé.
+- The `NAME` variable sets the name of the compiled executable.
 
-- Les variables `FLAGS` et `LIBS` sont à remplir si besoin (le **-I** dans les `FLAGS` est à remplir avec **votre dossier** où se trouve vos **fichiers .h** [dans le cas du C], comme ceci : `-I[chemin vers le dossier]`). **Surtout**, n'oubliez pas de **remplir ou supprimer** l'option **-I**, car, si vous la laissez vide, le Makefile provoquera une **erreur**.
+- The `FLAGS` and `LIBS` variables should be filled in if needed (use the **-I** option in `FLAGS` to point to your **header file directory** [for C], like this: `-I[path to directory]`).  
+**Important:** Don't forget to either **fill in or remove** the **-I** option—if left empty, the Makefile will trigger an **error**.
 
-- Enfin, si vous utilisez une **bibliothèque statique compilée** avec un autre Makefile, vous pouvez **décommenter** la ligne qui compile la bibliothèque.
-Si vous utilisez un autre dossier que `lib`, n'hésitez pas à le changer pour correspondre à votre cas, tout en suivant cette **règle** : `make re -C [chemin vers le dossier du Makefile]`. De plus, n'hésitez pas à retirer la redirection vers le `/dev/null` si vous avez besoin des affichages dans le terminal.
+- Finally, if you're using a **static library compiled** with another Makefile, you can **uncomment** the line that compiles the library.  
+If your library folder is not named `lib`, feel free to modify it to match your structure, following this **pattern**:  
+`make re -C [path to the library's Makefile]`.  
+Additionally, you may remove the redirection to `/dev/null` if you want to see the output in the terminal.
