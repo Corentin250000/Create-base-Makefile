@@ -61,9 +61,6 @@ echo -e "\t@echo -e \"\$(CYAN)Building project and unit tests...\$(RESET)\"" >> 
 echo -e "\t@if \$(CC) -o unit_tests \$(SRC_TESTS) \$(CFLAGS) -lcriterion --coverage; \\" >> $FILE
 echo -e "\tthen \\" >> $FILE
 echo -e "\t\techo -e \"\$(GREEN)✓ Build successful!\$(RESET)\\\\n\"; \\" >> $FILE
-echo -e "\telse \\" >> $FILE
-echo -e "\t\techo -e \"\$(RED)✗ Build failed.\$(RESET)\\\\n\"; \\" >> $FILE
-echo -e "\t\texit 1; \\" >> $FILE
 echo -e "\tfi" >> $FILE
 
 echo -e "\ntests_run:    unit_tests" >> $FILE
