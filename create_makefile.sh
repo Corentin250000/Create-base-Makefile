@@ -1,55 +1,90 @@
 #!/bin/bash
 
-# This script create an empty Makefile adapted to the Epitech convention.
+# This script creates a Makefile adapted to the Epitech convention.
 
 FILE="Makefile"
 
 YEAR=$1
 
-HEADER="##\n## EPITECH PROJECT, "$YEAR"\n## "$FILE"\n## File description:\n## "$FILE"\n##"
+HEADER="##\n## EPITECH PROJECT, "$YEAR"\n## "$FILE"\n## File description:\n## ...\n##"
 
 echo -e $HEADER > $FILE
 
-echo -e "\nSRC\t=" >> $FILE
+echo -e "\nSRC\t=\t\$(shell find src -name \"*.c\")" >> $FILE
 
-echo -e "\nSRC_UNIT_TESTS\t=" >> $FILE
-
-echo -e "\nOBJ\t=\t$""(SRC:.c=.o)" >> $FILE
-
-echo -e "\nOBJ_UNIT_TESTS\t=\t$""(SRC_UNIT_TESTS:.c=.o)" >> $FILE
+echo -e "\nSRC_TESTS\t=\t\$(shell find src tests -name \"*.c\" ! -name \"main.c\")" >> $FILE
 
 echo -e "\nNAME\t=" >> $FILE
 
-echo -e "\nCC\t=\tgcc" >> $FILE
+echo -e "\nOBJ\t=\t\$(SRC:.c=.o)" >> $FILE
 
-echo -e "\nFLAGS\t=\t-Wall -Wextra -g -I" >> $FILE
+echo -e "\nCFLAGS\t=\t-Wall -Wextra" >> $FILE
 
-echo -e "\nLIBS\t=" >> $FILE
+echo -e "\nCC\t=\tepiclang" >> $FILE
 
-echo -e "\nCFLAGS\t=\t$""(FLAGS) $""(LIBS)" >> $FILE
+printf '\nGREEN = \\033[0;32m\n' >> $FILE
 
-echo -e "\n$""(NAME):\t$""(OBJ)\n#\t\tmake re -C lib/ > /dev/null\n\t\t$""(CC) -o $""(NAME) $""(OBJ) $""(CFLAGS)" >> $FILE
+printf '\nYELLOW = \\033[0;33m\n' >> $FILE
 
-echo -e "\nall:\t$""(NAME)" >> $FILE
+printf '\nCYAN = \\033[0;36m\n' >> $FILE
 
-echo -e "\nclean:\n\t\trm -f $""(OBJ)\n\t\trm -f $""(OBJ_UNIT_TESTS)\n\t\tfind . -type f -name '*.gcda' -delete\n\t\tfind . -type f -name '*.gcno' -delete\n\t\tfind . -type f -name '*.gcov' -delete\n\t\tfind . -type f -name '*~' -delete" >> $FILE
+printf '\nRESET = \\033[0m\n' >> $FILE
 
-echo -e "\nfclean:\tclean\n\t\trm -f $""(NAME)\n\t\trm -f a.out\n\t\trm -f unit_tests" >> $FILE
+echo -e "\nall:" >> $FILE
+echo -e "\t@echo -e \"\$(CYAN)Building project...\$(RESET)\"" >> $FILE
+echo -e "\t@\$(MAKE) \$(NAME) | grep Build" >> $FILE
 
-echo -e "\nre:\t\tfclean all" >> $FILE
+echo -e "\n\$(NAME):\t\$(OBJ)" >> $FILE
+echo -e "\t@if \$(CC) \$(OBJ) -o \$(NAME) \$(CFLAGS); then \\" >> $FILE
+echo -e "\t\techo -e \"\$(GREEN)✓ Build successful!\$(RESET)\\\\n\"; \\" >> $FILE
+echo -e "\tfi" >> $FILE
 
-echo -e "\ntests_run:\t$""(OBJ_UNIT_TESTS)\n\t\t$""(CC) --coverage -lcriterion -o unit_tests $""(OBJ_UNIT_TESTS) $""(CFLAGS)\n\t\t./unit_tests --verbose" >> $FILE
+echo -e "\nclean:" >> $FILE
+echo -e "\t@echo -e \"\$(CYAN)Cleaning up temporary files...\$(RESET)\"" >> $FILE
+echo -e "\t@rm -rf \$(OBJ)" >> $FILE
+echo -e "\t@find . -type f -name '*.gcda' -delete" >> $FILE
+echo -e "\t@find . -type f -name '*.gcno' -delete" >> $FILE
+echo -e "\t@find . -type f -name '*.gcov' -delete" >> $FILE
+echo -e "\t@find . -type f -name '*~' -delete" >> $FILE
+echo -e "\t@echo -e \"\$(GREEN)Cleaning finished!\$(RESET)\\\\n\"" >> $FILE
+
+echo -e "\nfclean: clean" >> $FILE
+echo -e "\t@echo -e \"\$(CYAN)Cleaning up binary files...\$(RESET)\"" >> $FILE
+echo -e "\t@rm -rf \$(NAME)" >> $FILE
+echo -e "\t@rm -rf unit_tests" >> $FILE
+echo -e "\t@echo -e \"\$(GREEN)Cleaning finished!\$(RESET)\\\\n\"" >> $FILE
+
+echo -e "\nre: fclean all" >> $FILE
+
+echo -e "\nunit_tests:    fclean" >> $FILE
+echo -e "\t@echo -e \"\$(CYAN)Building project and unit tests...\$(RESET)\"" >> $FILE
+echo -e "\t@if \$(CC) -o unit_tests \$(SRC_TESTS) \$(CFLAGS) -lcriterion --coverage; \\" >> $FILE
+echo -e "\tthen \\" >> $FILE
+echo -e "\t\techo -e \"\$(GREEN)✓ Build successful!\$(RESET)\\\\n\"; \\" >> $FILE
+echo -e "\telse \\" >> $FILE
+echo -e "\t\techo -e \"\$(RED)✗ Build failed.\$(RESET)\\\\n\"; \\" >> $FILE
+echo -e "\t\texit 1; \\" >> $FILE
+echo -e "\tfi" >> $FILE
+
+echo -e "\ntests_run:    unit_tests" >> $FILE
+echo -e "\t@./unit_tests --verbose" >> $FILE
+
+echo -e "\ntests_coverage: unit_tests" >> $FILE
+echo -e "\t@./unit_tests --verbose" >> $FILE
+echo -e "\t@echo -e \"\$(YELLOW)Lines coverage:\$(RESET)\\\\n\"" >> $FILE
+echo -e "\t@gcovr --exclude tests/ --txt-metric line \\" >> $FILE
+echo -e "\t\t--gcov-executable \"llvm-cov-20 gcov\"" >> $FILE
+echo -e "\t@echo -e \"\$(YELLOW)Branches coverage:\$(RESET)\\\\n\"" >> $FILE
+echo -e "\t@gcovr --exclude tests/ --txt-metric branch \\" >> $FILE
+echo -e "\t\t--gcov-executable \"llvm-cov-20 gcov\"" >> $FILE
 
 echo -e "\n# Cette règle ne s'adresse qu'aux étudiants Epitech possédant le script\n# effectuant la vérification de la norme de code Epitech" >> $FILE
+echo -e "coding_style:\tfclean" >> $FILE
+echo -e "\t\t\t@echo -e \"\$(CYAN)Executing coding style verification...\$(RESET)\"" >> $FILE
+echo -e "\t\t\t@coding-style.sh . ." >> $FILE
+echo -e "\t\t\t@cat coding-style-reports.log" >> $FILE
+echo -e "\t\t\t@rm -f coding-style-reports.log" >> $FILE
 
-echo -e "\ncoding_style:\tfclean\n\t\t\tcoding-style . .\n\t\t\tcat coding-style-reports.log\n\t\t\trm -f coding-style-reports.log" >> $FILE
-
-echo -e "\n.PHONY:\tall clean fclean re tests_run coding_style" >> $FILE
-
-#.gitignore
-
-GITIGNORE=".gitignore"
-
-echo -e "\n.gitignore\n*.gcda\n*.gcno\n*.o\nunit_tests\ncoding-style-reports.log" >> $GITIGNORE
+echo -e "\n.PHONY:\tall clean fclean re unit_tests tests_run tests_coverage coding_style" >> $FILE
 
 exit 0

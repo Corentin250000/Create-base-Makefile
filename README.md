@@ -19,16 +19,22 @@ This allows you to execute the script from anywhere in your filesystem (command:
 
 - It is **recommended** to put the `main` function in a **separate file** to avoid issues with **unit test compilation**.
 
-- In the `SRC` variable, list all your **source files**, except those used for **unit testing**.
+- The `SRC` variable uses `$(shell find src -name "*.c")` to **automatically discover** all your **source files** in the `src` directory. If your source code is organized differently, feel free to **modify this pattern** to match your project structure.
 
-- In the `SRC_UNIT_TESTS` variable, include all your **source files** (**except the one containing the main function**), including those used for **unit testing**.
+- The `SRC_TESTS` variable automatically finds all **source files** in both `src` and `tests` directories, **excluding main.c**. This ensures all functions are available for **unit testing** without the main entry point causing conflicts. Adjust the find pattern if your structure is different.
 
-- The `NAME` variable sets the name of the compiled executable.
+- The `NAME` variable sets the name of the compiled **executable**. Leave it empty to be filled in with your project name.
 
-- The `FLAGS` and `LIBS` variables should be filled in if needed (use the **-I** option in `FLAGS` to point to your **header file directory** [for C], like this: `-I[path to directory]`).  
-**Important:** Don't forget to either **fill in or remove** the **-I** option—if left empty, the Makefile will trigger an **error**.
+- The `CC` variable is set to **epiclang** by default. If you need to use a different compiler (e.g., `gcc`), simply update this variable.
 
-- Finally, if you're using a **static library compiled** with another Makefile, you can **uncomment** the line that compiles the library.  
-If your library folder is not named `lib`, feel free to modify it to match your structure, following this **pattern**:  
-`make re -C [path to the library's Makefile]`.  
-Additionally, you may remove the redirection to `/dev/null` if you want to see the output in the terminal.
+- The `CFLAGS` variable contains the **compilation flags**. Feel free to **add additional flags** as needed.  
+
+- The Makefile includes several **built-in rules**:
+  - `make all` - Builds the project
+  - `make clean` - Removes object files and temporary files
+  - `make fclean` - Removes the compiled executable and all temporary files
+  - `make re` - Performs a full rebuild
+  - `make unit_tests` - Compiles unit tests with coverage support
+  - `make tests_run` - Runs the unit tests
+  - `make tests_coverage` - Runs tests and displays code coverage reports
+  - `make coding_style` - Executes the Epitech coding style verification
