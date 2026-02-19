@@ -87,4 +87,8 @@ echo -e "\t\t\t@rm -f coding-style-reports.log" >> $FILE
 
 echo -e "\n.PHONY:\tall clean fclean re unit_tests tests_run tests_coverage coding_style" >> $FILE
 
+GITIGNORE=".gitignore"
+
+printf '\n*.gcda\n*.gcno\n*.gcov\n*~\n*.o\nunit_tests\ncoding-style-reports.log\n' >> $GITIGNORE
+
 exit 0
