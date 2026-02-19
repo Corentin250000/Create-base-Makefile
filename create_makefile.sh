@@ -37,7 +37,7 @@ case "$LANG" in
 		EXT="c"
 		MAIN="main.c"
 		COMPILER_VAR="CC"
-		COMPILER_DEFAULT="gcc"
+		COMPILER_DEFAULT="epiclang"
 		FLAGS_VAR="CFLAGS"
 		FLAGS_DEFAULT="-Wall -Wextra"
 		IS_C=1
@@ -46,7 +46,7 @@ case "$LANG" in
 		EXT="cpp"
 		MAIN="main.cpp"
 		COMPILER_VAR="CXX"
-		COMPILER_DEFAULT="g++"
+		COMPILER_DEFAULT="clang++"
 		FLAGS_VAR="CXXFLAGS"
 		FLAGS_DEFAULT="-std=c++20 -Wall -Wextra -Werror -I./src"
 		IS_C=0
